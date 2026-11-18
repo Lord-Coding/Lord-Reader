@@ -11,6 +11,7 @@
 - [x] Rechercher du texte dans les EPUB et les PDF.
 - [x] Régler police, interligne, marges et thème de page, avec préférences par livre.
 - [x] Supprimer un livre importé après confirmation, en supprimant aussi sa progression locale.
+- [x] Utiliser le logo du dossier `public/logo/` dans l’application et le manifeste.
 - [x] Documenter le stockage local des livres, métadonnées et préférences.
 - [x] Ajouter les tests de base avec des fichiers EPUB et PDF générés pour les parcours de lecture.
 
@@ -23,16 +24,16 @@
 
 ## Bibliothèque et fichiers
 
-- [ ] Ajouter l’édition des métadonnées et du synopsis après import.
+- [x] Ajouter l’édition des métadonnées et du synopsis après import.
 - [ ] Permettre l’import multiple et l’import depuis un fournisseur cloud.
 - [ ] Ajouter une sauvegarde/restauration chiffrée des livres, favoris et progressions.
-- [ ] Proposer une gestion explicite de l’espace utilisé et une page de diagnostic du quota.
+- [x] Proposer une gestion explicite de l’espace utilisé et une page de diagnostic du quota.
 
 ## Découverte et suivi
 
-- [ ] Remplacer les livres de démonstration par un écran d’accueil vide lors de la première utilisation.
+- [x] Remplacer les livres de démonstration par un écran d’accueil vide lors de la première utilisation.
 - [ ] Ajouter des collections personnalisées, tags et filtres par auteur ou date d’ajout.
-- [ ] Calculer une progression réelle et des statistiques de lecture à partir des sessions.
+- [x] Calculer une progression réelle et des statistiques de lecture à partir des sessions.
 - [ ] Ajouter des objectifs de lecture, rappels facultatifs et historique des livres terminés.
 
 ## Qualité et publication

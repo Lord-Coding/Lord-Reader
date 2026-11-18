@@ -40,6 +40,16 @@
   font-size: 1.2rem;
 }
 
+.welcome_brand_mark img {
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
+}
+
+body.ion-palette-dark .welcome_brand_mark img {
+  filter: brightness(0) invert(1);
+}
+
 .welcome_brand strong {
   font-family: Georgia, 'Times New Roman', serif;
   font-size: 1.05rem;

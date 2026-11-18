@@ -1,5 +1,5 @@
 import { Capacitor } from '@capacitor/core';
-import { IonAlert, IonButton, IonContent, IonIcon, IonPage, useIonRouter } from '@ionic/react';
+import { IonAlert, IonButton, IonContent, IonIcon, IonInput, IonPage, IonTextarea, useIonRouter } from '@ionic/react';
 import { arrowBack, heart, heartOutline, readerOutline } from 'ionicons/icons';
 import { useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -13,12 +13,18 @@ import '../styles/book_details.css';
 const BookDetails: React.FC = () => {
   const { bookId } = useParams<{ bookId: string }>();
   const router = useIonRouter();
-  const { books, toggleFavorite, importBook, removeImportedBook } = useLibrary();
+  const { books, toggleFavorite, importBook, removeImportedBook, updateBookMetadata } = useLibrary();
   const fileInput = useRef<HTMLInputElement>(null);
   const [fileError, setFileError] = useState('');
   const [isImporting, setIsImporting] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [isSavingMetadata, setIsSavingMetadata] = useState(false);
+  const [metadataError, setMetadataError] = useState('');
+  const [editedTitle, setEditedTitle] = useState('');
+  const [editedAuthor, setEditedAuthor] = useState('');
+  const [editedSynopsis, setEditedSynopsis] = useState('');
   const book = books.find((item) => item.id === bookId);
 
   const attachFile = async (file?: File) => {
@@ -79,6 +85,37 @@ const BookDetails: React.FC = () => {
       setFileError('Le fichier n’a pas pu être supprimé. Aucun espace n’a été libéré.');
     } finally {
       setIsDeleting(false);
+    }
+  };
+
+  const beginEditingMetadata = () => {
+    if (!book) return;
+    setEditedTitle(book.title);
+    setEditedAuthor(book.author);
+    setEditedSynopsis(book.synopsis ?? '');
+    setMetadataError('');
+    setIsEditing(true);
+  };
+
+  const saveMetadata = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!book) return;
+    const title = editedTitle.trim();
+    const author = editedAuthor.trim();
+    if (!title || !author) {
+      setMetadataError('Le titre et le nom de l’auteur sont obligatoires.');
+      return;
+    }
+    setIsSavingMetadata(true);
+    setMetadataError('');
+    try {
+      await updateBookMetadata(book.id, { title, author, synopsis: editedSynopsis.trim() });
+      setIsEditing(false);
+    } catch (error) {
+      console.error('Impossible d’enregistrer les métadonnées du livre.', error);
+      setMetadataError('Les modifications n’ont pas pu être enregistrées.');
+    } finally {
+      setIsSavingMetadata(false);
     }
   };
 
@@ -151,12 +188,61 @@ const BookDetails: React.FC = () => {
           )}
           <section className="work_details">
             <div className="work_synopsis">
-              <p className="eyebrow">À PROPOS DE L’ŒUVRE</p>
-              <h2>Synopsis</h2>
-              <p>
-                {book.synopsis ||
-                  'Aucun synopsis n’est renseigné pour cette œuvre. Vous pourrez le compléter lors de l’import de votre fichier.'}
-              </p>
+              {isEditing ? (
+                <>
+                  <p className="eyebrow">MODIFIER LES INFORMATIONS</p>
+                  <h2>Métadonnées et synopsis</h2>
+                  <form className="metadata_form" onSubmit={(event) => void saveMetadata(event)}>
+                    <IonInput
+                      label="Titre"
+                      labelPlacement="stacked"
+                      fill="outline"
+                      value={editedTitle}
+                      onIonInput={(event) => setEditedTitle(event.detail.value ?? '')}
+                    />
+                    <IonInput
+                      label="Auteur"
+                      labelPlacement="stacked"
+                      fill="outline"
+                      value={editedAuthor}
+                      onIonInput={(event) => setEditedAuthor(event.detail.value ?? '')}
+                    />
+                    <IonTextarea
+                      label="Synopsis"
+                      labelPlacement="stacked"
+                      fill="outline"
+                      autoGrow
+                      value={editedSynopsis}
+                      onIonInput={(event) => setEditedSynopsis(event.detail.value ?? '')}
+                    />
+                    {metadataError && (
+                      <p className="details_error" role="alert">
+                        {metadataError}
+                      </p>
+                    )}
+                    <div className="metadata_actions">
+                      <IonButton type="submit" disabled={isSavingMetadata}>
+                        {isSavingMetadata ? 'Enregistrement…' : 'Enregistrer'}
+                      </IonButton>
+                      <IonButton fill="clear" disabled={isSavingMetadata} onClick={() => setIsEditing(false)}>
+                        Annuler
+                      </IonButton>
+                    </div>
+                  </form>
+                </>
+              ) : (
+                <>
+                  <p className="eyebrow">À PROPOS DE L’ŒUVRE</p>
+                  <h2>Synopsis</h2>
+                  <p>
+                    {book.synopsis ||
+                      'Aucun synopsis n’est renseigné pour cette œuvre. Vous pouvez ajouter une description.'}
+                  </p>
+                  <IonButton fill="clear" className="replace_file_button" onClick={beginEditingMetadata}>
+                    Modifier les informations
+                  </IonButton>
+                </>
+              )}
             </div>
             <div className="work_file_details">
               <p className="eyebrow">DANS VOTRE BIBLIOTHÈQUE</p>

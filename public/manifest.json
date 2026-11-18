@@ -3,6 +3,11 @@
   "name": "LordReader — votre bibliothèque",
   "icons": [
     {
+      "src": "/logo/logo.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    },
+    {
       "src": "favicon.png",
       "type": "image/png",
       "sizes": "64x64"

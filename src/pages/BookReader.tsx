@@ -17,7 +17,14 @@ import { useParams } from 'react-router-dom';
 
 import { useLibrary } from '../hooks/useLibrary';
 import { formatFileSize } from '../lib/bookImport';
-import { getBookFile, getReadingProgress, saveReadingProgress, type ReadingProgress } from '../lib/bookStorage';
+import {
+  getBookFile,
+  getReadingProgress,
+  saveReadingProgress,
+  startReadingSession,
+  updateReadingSession,
+  type ReadingProgress,
+} from '../lib/bookStorage';
 import { closePdfDocument, openPdfDocument } from '../lib/pdfDocument';
 import '../styles/book_reader.css';
 
@@ -130,6 +137,7 @@ const BookReader: React.FC = () => {
   const [searchError, setSearchError] = useState('');
   const epubContainer = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const percentageRef = useRef(percentage);
   const preferencesRef = useRef(preferences);
   const epubBookRef = useRef<EpubBook | null>(null);
   const renditionRef = useRef<Rendition | null>(null);
@@ -268,6 +276,61 @@ const BookReader: React.FC = () => {
       }
     };
   }, [activeBookId, bookFormat, file, initialProgress]);
+
+  useEffect(() => {
+    percentageRef.current = percentage;
+  }, [percentage]);
+
+  useEffect(() => {
+    const readerReady = bookFormat === 'PDF' ? Boolean(pdfDocument) : isEpubReady;
+    if (!activeBookId || !bookFormat || !file || isLoadingFile || !readerReady) return;
+
+    let sessionId: string | undefined;
+    let activeSince = document.visibilityState === 'visible' ? Date.now() : undefined;
+    let durationMs = 0;
+    const sessionPromise = startReadingSession(activeBookId, bookFormat, percentageRef.current).then((id) => {
+      sessionId = id;
+    });
+
+    const saveSession = async (finish = false) => {
+      const now = Date.now();
+      if (activeSince !== undefined) {
+        durationMs += Math.max(0, now - activeSince);
+        activeSince = finish || document.visibilityState !== 'visible' ? undefined : now;
+      }
+      if (!sessionId) return;
+      await updateReadingSession(sessionId, durationMs, percentageRef.current, finish ? now : undefined);
+    };
+
+    const reportSaveError = (sessionError: unknown) => {
+      console.error('Impossible d’enregistrer la session de lecture.', sessionError);
+      setError('Les statistiques de cette session n’ont pas pu être enregistrées.');
+    };
+    void sessionPromise.catch(reportSaveError);
+    const onVisibilityChange = () => {
+      if (document.visibilityState === 'hidden') {
+        void saveSession().catch(reportSaveError);
+      } else {
+        activeSince = Date.now();
+      }
+    };
+    const onPageHide = () => {
+      void saveSession(true).catch(reportSaveError);
+    };
+    const intervalId = window.setInterval(() => {
+      void saveSession().catch(reportSaveError);
+    }, 15_000);
+
+    document.addEventListener('visibilitychange', onVisibilityChange);
+    window.addEventListener('pagehide', onPageHide);
+
+    return () => {
+      window.clearInterval(intervalId);
+      document.removeEventListener('visibilitychange', onVisibilityChange);
+      window.removeEventListener('pagehide', onPageHide);
+      void sessionPromise.then(() => saveSession(true)).catch(reportSaveError);
+    };
+  }, [activeBookId, bookFormat, file, isEpubReady, isLoadingFile, pdfDocument]);
 
   useEffect(() => {
     preferencesRef.current = preferences;

@@ -23,6 +23,17 @@
   font-size: 1.15rem;
 }
 
+.app_logo_image {
+  display: block;
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+body.ion-palette-dark .app_logo_image {
+  filter: brightness(0) invert(1);
+}
+
 .brand_name {
   color: var(--reader-ink);
   font-family: Georgia, 'Times New Roman', serif;

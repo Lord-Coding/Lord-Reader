@@ -5,6 +5,7 @@ import '../styles/library.css';
 
 import BookCard from '../components/BookCard';
 import CategorySegment from '../components/CategorySegment';
+import EmptyBookScreen from '../components/EmptyBookScreen';
 import { useLibrary } from '../hooks/useLibrary';
 import type { CategorySegment as CategorySegmentType } from '../lib/models';
 
@@ -51,64 +52,70 @@ const Library: React.FC = () => {
             </IonButton>
           </header>
 
-          <section className="library_controls" aria-label="Rechercher et filtrer les livres">
-            <div className="search_row">
-              <IonSearchbar
-                className="reader_searchbar"
-                mode="ios"
-                placeholder="Un titre, un auteur…"
-                aria-label="Rechercher un livre"
-                value={searchText}
-                onIonInput={(event) => setSearchText(event.detail.value ?? '')}
-              />
-              <IonButton
-                className={`sort_button${sortAscending ? '' : ' sort_button--descending'}`}
-                fill="clear"
-                aria-label={sortAscending ? 'Trier de Z à A' : 'Trier de A à Z'}
-                title={sortAscending ? 'Trier de Z à A' : 'Trier de A à Z'}
-                onClick={() => setSortAscending((current) => !current)}
-              >
-                <IonIcon icon={optionsOutline} slot="icon-only" />
-              </IonButton>
-            </div>
-            <CategorySegment
-              activeSegment={activeSegment}
-              setActiveSegment={setActiveSegment}
-              searchValue={searchText}
-              bookLibrary={books}
-            />
-          </section>
-
-          <div className="results_heading">
-            <h2>{activeSegment === 'Favoris' ? 'Vos coups de cœur' : 'Tous vos livres'}</h2>
-            <span>
-              {visibleBooks.length} {visibleBooks.length > 1 ? 'livres' : 'livre'}
-            </span>
-          </div>
-
-          {visibleBooks.length > 0 ? (
-            <div className="book_grid">
-              {visibleBooks.map((book) => (
-                <BookCard key={book.id} {...book} onToggleFavorite={toggleFavorite} />
-              ))}
-            </div>
+          {books.length === 0 ? (
+            <EmptyBookScreen onImport={() => router.push('/tabs/import', 'forward')} />
           ) : (
-            <section className="empty_state">
-              <span className="empty_state_mark">
-                <IonIcon icon={optionsOutline} />
-              </span>
-              <h2>Aucun résultat cette fois</h2>
-              <p>Essayez un autre titre ou choisissez une catégorie différente.</p>
-              <IonButton
-                fill="clear"
-                onClick={() => {
-                  setSearchText('');
-                  setActiveSegment('tous');
-                }}
-              >
-                Effacer les filtres
-              </IonButton>
-            </section>
+            <>
+              <section className="library_controls" aria-label="Rechercher et filtrer les livres">
+                <div className="search_row">
+                  <IonSearchbar
+                    className="reader_searchbar"
+                    mode="ios"
+                    placeholder="Un titre, un auteur…"
+                    aria-label="Rechercher un livre"
+                    value={searchText}
+                    onIonInput={(event) => setSearchText(event.detail.value ?? '')}
+                  />
+                  <IonButton
+                    className={`sort_button${sortAscending ? '' : ' sort_button--descending'}`}
+                    fill="clear"
+                    aria-label={sortAscending ? 'Trier de Z à A' : 'Trier de A à Z'}
+                    title={sortAscending ? 'Trier de Z à A' : 'Trier de A à Z'}
+                    onClick={() => setSortAscending((current) => !current)}
+                  >
+                    <IonIcon icon={optionsOutline} slot="icon-only" />
+                  </IonButton>
+                </div>
+                <CategorySegment
+                  activeSegment={activeSegment}
+                  setActiveSegment={setActiveSegment}
+                  searchValue={searchText}
+                  bookLibrary={books}
+                />
+              </section>
+
+              <div className="results_heading">
+                <h2>{activeSegment === 'Favoris' ? 'Vos coups de cœur' : 'Tous vos livres'}</h2>
+                <span>
+                  {visibleBooks.length} {visibleBooks.length > 1 ? 'livres' : 'livre'}
+                </span>
+              </div>
+
+              {visibleBooks.length > 0 ? (
+                <div className="book_grid">
+                  {visibleBooks.map((book) => (
+                    <BookCard key={book.id} {...book} onToggleFavorite={toggleFavorite} />
+                  ))}
+                </div>
+              ) : (
+                <section className="empty_state">
+                  <span className="empty_state_mark">
+                    <IonIcon icon={optionsOutline} />
+                  </span>
+                  <h2>Aucun résultat cette fois</h2>
+                  <p>Essayez un autre titre ou choisissez une catégorie différente.</p>
+                  <IonButton
+                    fill="clear"
+                    onClick={() => {
+                      setSearchText('');
+                      setActiveSegment('tous');
+                    }}
+                  >
+                    Effacer les filtres
+                  </IonButton>
+                </section>
+              )}
+            </>
           )}
         </div>
       </IonContent>

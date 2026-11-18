@@ -13,7 +13,7 @@ const Welcome: React.FC = () => {
           <header className="welcome_header">
             <a className="welcome_brand" href="/welcome" aria-label="LordReader, accueil">
               <span className="welcome_brand_mark">
-                <IonIcon icon={bookOutline} />
+                <img src="/logo/logo.svg" alt="" />
               </span>
               <strong>LordReader</strong>
             </a>

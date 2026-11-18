@@ -1,54 +1,51 @@
 .empty_book_container {
     width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* gap: 0.5rem; */
-    padding: 1rem;
+    gap: 10px;
+    padding: 24px 20px 34px;
+    text-align: center;
 }
 
 .icon_container {
     display: flex;
     justify-content: center;
-    width: 250px;
+    width: min(250px, 70%);
     overflow: hidden;
 
     img {
         display: grid;
         width: 100%;
+        filter: drop-shadow(0 18px 22px rgba(49, 32, 110, 0.16));
     }
 }
 
-.empty_book_container ion-label {
-    text-align: center;
-    padding: 0 1rem;
-    margin: 1rem 0 0;
+.empty_book_container h2 {
+    max-width: 430px;
+    margin: 0;
+    color: var(--reader-ink);
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(1.65rem, 6vw, 2.2rem);
+    font-weight: 500;
+    letter-spacing: -0.035em;
+}
 
-    h2 {
-        font-size: 1.8rem !important;
-        font-weight: bold !important;
-    }
-
-    p {
-        font-size: 1.25rem !important;
-        line-height: 1.5 !important;
-        margin: 0;
-        padding: 0;
-    }
+.empty_book_container p {
+    max-width: 380px;
+    margin: 0;
+    color: var(--reader-muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
 }
 
 .empty_book_container ion-button {
+    min-height: 44px;
+    margin-top: 6px;
+    --background: var(--reader-accent-strong);
+    --border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 700;
     text-transform: none;
-    font-size: 1.2rem;
-    padding: 0;
-    height: 3rem;
-    width: 80%;
-    --border-radius: 0.5rem;
-    
-    ion-icon {
-        padding: 0;
-        padding-inline-end: 0.5rem;
-    }
 }

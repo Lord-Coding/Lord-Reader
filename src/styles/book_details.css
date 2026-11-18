@@ -154,6 +154,41 @@
   text-transform: none;
 }
 
+.metadata_form {
+  display: grid;
+  gap: 12px;
+}
+
+.metadata_form ion-input,
+.metadata_form ion-textarea {
+  --background: var(--reader-bg);
+  --border-color: var(--reader-border);
+  --border-radius: 14px;
+  --highlight-color-focused: var(--reader-accent);
+  --color: var(--reader-ink);
+  font-size: 0.84rem;
+}
+
+.metadata_actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.metadata_actions ion-button:first-child {
+  --background: var(--reader-accent-strong);
+  --border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: none;
+}
+
+.metadata_actions ion-button:last-child {
+  --color: var(--reader-muted);
+  font-size: 0.75rem;
+  text-transform: none;
+}
+
 @media (min-width: 760px) {
   .book_details_hero {
     grid-template-columns: 230px minmax(0, 1fr);

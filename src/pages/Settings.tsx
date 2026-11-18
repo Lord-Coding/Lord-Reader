@@ -1,5 +1,5 @@
 import { IonAlert, IonButton, IonContent, IonIcon, IonPage, IonToggle, useIonRouter } from '@ionic/react';
-import { bookOutline, heart, moon, shieldCheckmarkOutline, sunny } from 'ionicons/icons';
+import { bookOutline, heart, moon, serverOutline, shieldCheckmarkOutline, sunny } from 'ionicons/icons';
 import { useState } from 'react';
 
 import { useLibrary } from '../hooks/useLibrary';
@@ -70,6 +70,22 @@ const Settings: React.FC = () => {
           </section>
 
           <section className="settings_section">
+            <p className="settings_section_label">STOCKAGE LOCAL</p>
+            <div className="settings_card settings_row">
+              <span className="settings_icon">
+                <IonIcon icon={serverOutline} />
+              </span>
+              <div className="settings_copy">
+                <h2>Espace et quota</h2>
+                <p>Consulter l’espace des livres, le quota du navigateur et supprimer des fichiers.</p>
+              </div>
+              <IonButton fill="clear" onClick={() => router.push('/tabs/storage')}>
+                Gérer
+              </IonButton>
+            </div>
+          </section>
+
+          <section className="settings_section">
             <p className="settings_section_label">GESTION DES DONNÉES</p>
             <div className="settings_card settings_row settings_reset">
               <div className="settings_copy">
@@ -105,7 +121,7 @@ const Settings: React.FC = () => {
 
           <footer className="settings_footer">
             <span className="brand_mark">
-              <IonIcon icon={bookOutline} />
+              <img className="app_logo_image" src="/logo/logo.svg" alt="" />
             </span>
             <p>
               LordReader <span>· Un livre à la fois.</span>

@@ -45,6 +45,7 @@ import Home from './pages/Home';
 import Library from './pages/Library';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import Settings from './pages/Settings';
+import Storage from './pages/Storage';
 import Welcome from './pages/Welcome';
 
 const BookReader = lazy(() => import('./pages/BookReader'));
@@ -77,6 +78,7 @@ const App: React.FC = () => (
                     <Route path="/tabs/library" element={<Library />} />
                     <Route path="/tabs/favorites" element={<Favorites />} />
                     <Route path="/tabs/settings" element={<Settings />} />
+                    <Route path="/tabs/storage" element={<Storage />} />
                     <Route path="/tabs/book/:bookId" element={<BookDetails />} />
                     <Route path="/tabs/import" element={<BookImport />} />
                   </IonRouterOutlet>
