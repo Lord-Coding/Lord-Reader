@@ -1,0 +1,455 @@
+.reader_page {
+  --background: #e8e5dd;
+}
+
+.reader_loading {
+  display: grid;
+  min-height: 100dvh;
+  place-items: center;
+  color: var(--reader-muted);
+  font-size: 0.9rem;
+}
+
+.reader_content {
+  --background: #e8e5dd;
+  --padding-bottom: 0;
+  --overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.reader_content::part(scroll) {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.reader_content > * {
+  flex: 0 0 auto;
+}
+
+.reader_viewer {
+  flex: 1 1 auto;
+}
+
+.reader_toolbar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  min-height: calc(58px + env(safe-area-inset-top));
+  align-items: center;
+  gap: 10px;
+  padding: max(8px, env(safe-area-inset-top)) 12px 8px;
+  border-bottom: 1px solid var(--reader-border);
+  background: var(--reader-surface);
+}
+
+.reader_tools {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px;
+  border-bottom: 1px solid var(--reader-border);
+  background: var(--reader-surface);
+}
+
+.reader_search_form {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  align-items: center;
+  gap: 4px;
+}
+
+.reader_search_field {
+  display: flex;
+  min-width: 0;
+  height: 38px;
+  flex: 1;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+  border: 1px solid var(--reader-border);
+  border-radius: 12px;
+  background: var(--reader-bg);
+  color: var(--reader-muted);
+}
+
+.reader_search_field ion-icon {
+  flex: 0 0 auto;
+  color: var(--reader-accent);
+}
+
+.reader_search_field input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--reader-ink);
+  font: inherit;
+  font-size: 0.72rem;
+}
+
+.reader_search_form ion-button,
+.reader_options_toggle {
+  margin: 0;
+  --color: var(--reader-accent);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: none;
+}
+
+.reader_options_toggle {
+  flex: 0 0 auto;
+  --padding-start: 7px;
+  --padding-end: 7px;
+}
+
+.reader_settings_panel {
+  display: grid;
+  flex: 0 0 auto;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--reader-border);
+  background: var(--reader-surface);
+}
+
+.reader_settings_panel label {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 5px;
+  color: var(--reader-muted);
+  font-size: 0.61rem;
+  font-weight: 700;
+}
+
+.reader_settings_panel select {
+  width: 100%;
+  min-width: 0;
+  height: 35px;
+  padding: 0 6px;
+  border: 1px solid var(--reader-border);
+  border-radius: 9px;
+  background: var(--reader-bg);
+  color: var(--reader-ink);
+  font: inherit;
+  font-size: 0.66rem;
+}
+
+.reader_search_status {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 2px 12px;
+  border-bottom: 1px solid var(--reader-border);
+  background: var(--reader-surface);
+  color: var(--reader-muted);
+  font-size: 0.67rem;
+}
+
+.reader_search_status p,
+.reader_search_status span {
+  min-width: 0;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.reader_search_status > div {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+}
+
+.reader_search_status ion-button {
+  width: 28px;
+  height: 30px;
+  margin: 0;
+  --color: var(--reader-accent);
+}
+
+.reader_search_status small {
+  min-width: 38px;
+  text-align: center;
+}
+
+.reader_toolbar ion-button {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  margin: 0;
+  --color: var(--reader-ink);
+}
+
+.reader_book_heading {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.reader_book_heading strong,
+.reader_book_heading span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.reader_book_heading strong {
+  color: var(--reader-ink);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 0.95rem;
+}
+
+.reader_book_heading span {
+  color: var(--reader-muted);
+  font-size: 0.68rem;
+}
+
+.reader_format_badge {
+  padding: 5px 8px;
+  border-radius: 999px;
+  background: var(--reader-soft);
+  color: var(--reader-accent-strong);
+  font-size: 0.62rem;
+  font-weight: 800;
+}
+
+.reader_viewer {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-height: 0;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+  padding: 16px;
+}
+
+.reader_viewer--epub {
+  padding: 12px;
+  background: #e9e5d9;
+}
+
+.epub_viewer {
+  width: min(100%, 900px);
+  height: 100%;
+  min-height: 360px;
+  overflow: hidden;
+  border: 1px solid rgba(43, 61, 48, 0.1);
+  border-radius: 10px;
+  background: #fffefa;
+  box-shadow: 0 10px 30px rgba(37, 43, 37, 0.1);
+}
+
+.reader_viewer--pdf {
+  align-items: flex-start;
+  padding: 24px 12px;
+  background: #dedbd4;
+}
+
+.reader_viewer[data-reader-margin='wide'] {
+  padding-right: 7vw;
+  padding-left: 7vw;
+}
+
+.reader_viewer[data-page-theme='sepia'] {
+  background: #e7dcc6;
+}
+
+.reader_viewer--pdf[data-page-theme='sepia'] .pdf_page_frame canvas {
+  filter: sepia(0.16);
+}
+
+.reader_viewer[data-page-theme='night'] {
+  background: #18151f;
+}
+
+.reader_viewer--pdf[data-page-theme='night'] .pdf_page_frame canvas {
+  filter: invert(0.88) hue-rotate(180deg);
+}
+
+.pdf_page_frame {
+  max-width: 100%;
+  min-height: 160px;
+  padding: 8px;
+  background: #fff;
+  box-shadow: 0 8px 26px rgba(35, 40, 35, 0.16);
+}
+
+.pdf_page_frame canvas {
+  display: block;
+  max-width: 100%;
+  height: auto !important;
+}
+
+.reader_message {
+  display: flex;
+  min-height: 250px;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  text-align: center;
+}
+
+.reader_message_icon {
+  display: grid;
+  width: 58px;
+  height: 58px;
+  place-items: center;
+  border-radius: 20px;
+  background: var(--reader-soft);
+  color: var(--reader-accent);
+  font-size: 1.4rem;
+}
+
+.reader_message h1 {
+  margin: 15px 0 6px;
+  color: var(--reader-ink);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+.reader_message p {
+  max-width: 460px;
+  color: var(--reader-muted);
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.reader_message ion-button {
+  margin-top: 10px;
+  --background: var(--reader-accent-strong);
+  --border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: none;
+}
+
+.reader_error {
+  margin: 0;
+  padding: 8px 14px;
+  background: #fff1ed;
+  color: #8d3e31;
+  font-size: 0.74rem;
+  text-align: center;
+}
+
+.reader_controls {
+  position: relative;
+  z-index: 2;
+  padding: 10px 14px max(10px, env(safe-area-inset-bottom));
+  border-top: 1px solid var(--reader-border);
+  background: var(--reader-surface);
+}
+
+.reader_progress {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 3px 4px;
+}
+
+.reader_progress_track {
+  height: 4px;
+  flex: 1;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--reader-soft);
+}
+
+.reader_progress_track span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--reader-accent);
+  transition: width 180ms ease;
+}
+
+.reader_progress small {
+  min-width: 32px;
+  color: var(--reader-muted);
+  font-size: 0.62rem;
+  text-align: end;
+}
+
+.reader_control_row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.reader_control_row ion-button {
+  width: 38px;
+  height: 38px;
+  margin: 0;
+  --color: var(--reader-ink);
+}
+
+.reader_control_row ion-button[disabled] {
+  opacity: 0.35;
+}
+
+.reader_page_count {
+  min-width: 94px;
+  color: var(--reader-muted);
+  font-size: 0.68rem;
+  text-align: center;
+}
+
+.reader_controls_divider {
+  width: 1px;
+  height: 22px;
+  margin: 0 5px;
+  background: var(--reader-border);
+}
+
+.reader_file_info {
+  margin: 4px 0 0;
+  overflow: hidden;
+  color: var(--reader-muted);
+  font-size: 0.61rem;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (min-width: 760px) {
+  .reader_toolbar {
+    padding-right: max(24px, calc((100% - 1120px) / 2));
+    padding-left: max(24px, calc((100% - 1120px) / 2));
+  }
+
+  .reader_viewer--epub {
+    padding: 22px;
+  }
+
+  .epub_viewer {
+    min-height: 480px;
+  }
+
+  .reader_controls {
+    padding-right: max(24px, calc((100% - 660px) / 2));
+    padding-left: max(24px, calc((100% - 660px) / 2));
+  }
+
+  .reader_tools,
+  .reader_settings_panel,
+  .reader_search_status {
+    padding-right: max(24px, calc((100% - 900px) / 2));
+    padding-left: max(24px, calc((100% - 900px) / 2));
+  }
+}

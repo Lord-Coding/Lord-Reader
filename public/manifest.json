@@ -1,0 +1,15 @@
+{
+  "short_name": "LordReader",
+  "name": "LordReader — votre bibliothèque",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "type": "image/png",
+      "sizes": "64x64"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#7045ff",
+  "background_color": "#f7f5ef"
+}

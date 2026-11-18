@@ -1,0 +1,54 @@
+.cat_segment_section {
+  display: flex;
+  flex-direction: row;
+  gap: 0.45rem;
+  width: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding: 0 1px 5px;
+}
+
+.cat_segment_section::-webkit-scrollbar {
+  display: none;
+}
+
+.cat_segment_section ion-button {
+  --background: var(--reader-surface);
+  --color: var(--reader-muted);
+  --border-radius: 999px;
+  --box-shadow: none;
+  width: fit-content;
+  min-height: 38px;
+  --padding-start: 13px;
+  --padding-end: 13px;
+  border: 1px solid var(--reader-border);
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: none;
+  display: flex;
+  align-items: center;
+}
+
+.cat_segment_section ion-button.active {
+  --background: var(--reader-accent-strong);
+  --color: #fff;
+  border-color: var(--reader-accent-strong);
+}
+
+.cat_btn_badge {
+  min-width: 20px;
+  margin-inline-start: 7px;
+  padding: 3px 6px;
+  border-radius: 999px;
+  background: rgba(112, 69, 255, 0.13);
+  color: inherit;
+  font-size: 0.63rem;
+  font-weight: 800;
+}
+
+.cat_segment_section ion-button.active .cat_btn_badge {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}

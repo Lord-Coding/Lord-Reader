@@ -1,0 +1,130 @@
+.import_page {
+  max-width: 720px;
+}
+
+.import_page .back_action {
+  margin-bottom: 14px;
+}
+
+.import_form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.file_dropzone {
+  display: flex;
+  min-height: 174px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px;
+  border: 1px dashed rgba(112, 69, 255, 0.42);
+  border-radius: 22px;
+  background: var(--reader-surface);
+  color: var(--reader-ink);
+  cursor: pointer;
+  text-align: center;
+}
+
+.file_dropzone--selected {
+  border-style: solid;
+  background: var(--reader-soft);
+}
+
+.file_dropzone_icon {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  margin-bottom: 2px;
+  border-radius: 16px;
+  background: var(--reader-soft);
+  color: var(--reader-accent);
+  font-size: 1.3rem;
+}
+
+.file_dropzone strong {
+  max-width: 100%;
+  overflow: hidden;
+  font-size: 0.9rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.file_dropzone > span:last-child {
+  color: var(--reader-muted);
+  font-size: 0.72rem;
+}
+
+.import_metadata {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  padding: 19px;
+  border: 1px solid var(--reader-border);
+  border-radius: 20px;
+  background: var(--reader-surface);
+}
+
+.import_metadata label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: var(--reader-ink);
+  font-size: 0.76rem;
+  font-weight: 750;
+}
+
+.import_metadata label span {
+  display: inline;
+  color: var(--reader-muted);
+  font-weight: 400;
+}
+
+.import_metadata input,
+.import_metadata textarea {
+  width: 100%;
+  min-height: 42px;
+  padding: 10px 12px;
+  border: 1px solid var(--reader-border);
+  border-radius: 12px;
+  outline: none;
+  background: var(--reader-bg);
+  color: var(--reader-ink);
+  font: inherit;
+  font-size: 0.82rem;
+}
+
+.import_metadata textarea {
+  min-height: 96px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.import_metadata input:focus,
+.import_metadata textarea:focus {
+  border-color: var(--reader-accent);
+  box-shadow: 0 0 0 3px rgba(112, 69, 255, 0.12);
+}
+
+.import_submit {
+  min-height: 46px;
+  margin: 3px 0;
+  --background: var(--reader-accent-strong);
+  --border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 750;
+  text-transform: none;
+}
+
+.import_error {
+  margin: 0;
+  padding: 11px 13px;
+  border-radius: 12px;
+  background: #fff1ed;
+  color: #8d3e31;
+  font-size: 0.76rem;
+  line-height: 1.45;
+}

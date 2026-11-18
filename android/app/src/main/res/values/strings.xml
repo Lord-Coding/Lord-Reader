@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">LordReader</string>
+    <string name="title_activity_main">LordReader</string>
+    <string name="package_name">com.lordreader.app</string>
+    <string name="custom_url_scheme">com.lordreader.app</string>
+</resources>

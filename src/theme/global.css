@@ -1,0 +1,290 @@
+:root {
+  --reader-bg: #f7f5ef;
+  --reader-surface: #fffefa;
+  --reader-surface-raised: #ffffff;
+  --reader-ink: #26332c;
+  --reader-muted: #778078;
+  --reader-accent: #7045ff;
+  --reader-accent-strong: #5b2de0;
+  --reader-gold: #c59659;
+  --reader-border: rgba(43, 61, 48, 0.1);
+  --reader-soft: #f0ebff;
+  --reader-shadow: 0 18px 45px rgba(48, 57, 48, 0.08);
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif;
+}
+
+body.ion-palette-dark {
+  --reader-bg: #171b18;
+  --reader-surface: #222923;
+  --reader-surface-raised: #29312b;
+  --reader-ink: #f1f0e9;
+  --reader-muted: #a1aaa0;
+  --reader-accent: #a88cff;
+  --reader-accent-strong: #c4b1ff;
+  --reader-gold: #e0b777;
+  --reader-border: rgba(233, 239, 230, 0.1);
+  --reader-soft: #322c43;
+  --reader-shadow: 0 18px 45px rgba(0, 0, 0, 0.2);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+ion-app {
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--reader-ink);
+  background: var(--reader-bg);
+  overflow-x: hidden;
+  overscroll-behavior: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+ion-app {
+  background: var(--reader-bg);
+}
+
+ion-content.screen_content {
+  --background: var(--reader-bg);
+  --padding-bottom: 20px;
+  color: var(--reader-ink);
+}
+
+ion-toolbar {
+  --background: transparent;
+  --border-width: 0;
+}
+
+ion-title {
+  color: var(--reader-ink);
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+ion-list,
+ion-list-header {
+  background: transparent !important;
+}
+
+ion-tab-bar {
+  --background: var(--reader-surface);
+  --border: 1px solid var(--reader-border);
+  min-height: 68px;
+  padding: 5px 8px max(5px, env(safe-area-inset-bottom));
+  box-shadow: 0 -12px 35px rgba(37, 48, 40, 0.08);
+  z-index: 3;
+}
+
+ion-tab-button {
+  --background: transparent;
+  --color: var(--reader-muted);
+  --color-selected: var(--reader-accent-strong);
+  --ripple-color: var(--reader-soft);
+  min-width: 64px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: none;
+}
+
+ion-tab-button ion-icon {
+  font-size: 1.2rem;
+  margin-bottom: 2px;
+}
+
+ion-tab-button.tab-selected {
+  font-weight: 750;
+}
+
+ion-progress-bar {
+  height: 6px;
+  --background: rgba(255, 255, 255, 0.24);
+  --progress-background: #d8c29a;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.screen_shell {
+  width: min(100% - 36px, 1120px);
+  margin: 0 auto;
+  padding: 24px 0 calc(32px + env(safe-area-inset-bottom));
+}
+
+.book_cover_fallback {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 7px;
+  overflow: hidden;
+  padding: 14px;
+  background:
+    radial-gradient(circle at 85% 15%, rgba(255, 255, 255, 0.32), transparent 34%),
+    linear-gradient(150deg, #815dff 0%, #43238e 100%);
+  color: #fff;
+  text-align: left;
+}
+
+.book_cover_fallback_title {
+  display: -webkit-box;
+  overflow: hidden;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(0.7rem, 3.2vw, 1.15rem);
+  font-weight: 700;
+  line-height: 1.2;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+}
+
+.book_cover_fallback_author {
+  overflow: hidden;
+  font-size: 0.65rem;
+  opacity: 0.82;
+  text-overflow: ellipsis;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  color: var(--reader-accent);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  line-height: 1.4;
+}
+
+.eyebrow ion-icon {
+  font-size: 0.9rem;
+}
+
+.book_type_badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 7px;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  line-height: 1;
+}
+
+.book_type_badge--epub {
+  background: #70886a;
+}
+
+.book_type_badge--pdf {
+  background: #a96858;
+}
+
+.visually_hidden_input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+.page_intro {
+  margin: 22px 0 26px;
+}
+
+.page_intro h1 {
+  margin: 9px 0 7px;
+  color: var(--reader-ink);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(2.45rem, 9vw, 3.5rem);
+  font-weight: 500;
+  letter-spacing: -0.055em;
+  line-height: 1.05;
+}
+
+.page_intro h1 span {
+  color: var(--reader-gold);
+}
+
+.page_intro > p:last-child {
+  max-width: 520px;
+  margin: 0;
+  color: var(--reader-muted);
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+
+.empty_state {
+  display: flex;
+  min-height: 300px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 22px;
+  border: 1px solid var(--reader-border);
+  border-radius: 24px;
+  background: var(--reader-surface);
+  text-align: center;
+}
+
+.empty_state_mark {
+  display: grid;
+  width: 58px;
+  height: 58px;
+  place-items: center;
+  margin-bottom: 12px;
+  border-radius: 20px;
+  background: var(--reader-soft);
+  color: var(--reader-accent);
+  font-size: 1.5rem;
+}
+
+.empty_state h2 {
+  margin: 8px 0;
+  color: var(--reader-ink);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+.empty_state p {
+  max-width: 360px;
+  margin: 0 0 14px;
+  color: var(--reader-muted);
+  line-height: 1.6;
+}
+
+.empty_state ion-button {
+  --background: var(--reader-accent-strong);
+  --border-radius: 999px;
+  --color: #fff;
+  font-weight: 700;
+  text-transform: none;
+}
+
+@media (min-width: 760px) {
+  .screen_shell {
+    width: min(100% - 72px, 1120px);
+    padding-top: 34px;
+  }
+
+  ion-tab-bar {
+    min-height: 72px;
+  }
+}
