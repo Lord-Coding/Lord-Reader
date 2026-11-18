@@ -1,0 +1,32 @@
+
+workflows:
+  ionic-android:
+    name: Ionic React - Android Build
+    max_build_duration: 60
+    instance_type: linux_x2
+
+    environment:
+      node: 22
+
+    scripts:
+      - name: Install dependencies
+        script: npm ci
+
+      - name: Build Ionic React application
+        script: npm run build
+
+      - name: Sync Capacitor Android
+        script: npx cap sync android
+
+      - name: Configure Android SDK
+        script: |
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/android/local.properties"
+
+      - name: Build Android APK
+        script: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+    artifacts:
+      - android/app/build/outputs/**/*.apk
